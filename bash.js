@@ -1,11 +1,15 @@
-const pwd = require('./pwd.js');
-const ls = require('./ls.js');
-const cat = require('./cat.js');
-const curl = require('./curl.js');
+const pwd = require('./pwd');
+const ls = require('./ls');
+const cat = require('./cat');
+const curl = require('./curl');
+const date = require('./date');
+const echo = require('./echo');
 
 const done = (output) => {
     process.stdout.write(output);
-    process.stdout.write('\nprompt > ');
+    setTimeout(() => {
+        process.stdout.write('\nprompt > ');
+    }, 10);
 }
 
 process.stdout.write('prompt > ');
@@ -17,6 +21,10 @@ process.stdin.on('data', (data) => {
     if (cmd.includes('cat')) cat(cmd, done);
     if (cmd === 'pwd') pwd(done);
     if (cmd.includes('curl')) curl(cmd, done);
+    if (cmd === 'date') date(done);
+    if (cmd.includes('echo')) echo(cmd, done);
 
-    process.stdout.write('You typed: ' + cmd + '\n');
+    setTimeout(() => {
+        process.stdout.write('\nYou typed: ' + cmd);
+    }, 5);
 });
