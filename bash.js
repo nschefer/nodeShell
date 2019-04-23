@@ -4,6 +4,9 @@ const cat = require('./cat');
 const curl = require('./curl');
 const date = require('./date');
 const echo = require('./echo');
+const head = require('./head');
+const tail = require('./tail');
+const sort = require('./sort');
 
 const done = (output) => {
     process.stdout.write(output);
@@ -14,7 +17,7 @@ const done = (output) => {
 
 process.stdout.write('prompt > ');
 
-process.stdin.on('data', (data) => {
+process.stdin.on('data', function (data) {
     const cmd = data.toString().trim();
 
     if (cmd === 'ls') ls(done);
@@ -23,6 +26,9 @@ process.stdin.on('data', (data) => {
     if (cmd.includes('curl')) curl(cmd, done);
     if (cmd === 'date') date(done);
     if (cmd.includes('echo')) echo(cmd, done);
+    if (cmd.includes('head')) head(cmd, done);
+    if (cmd.includes('tail')) tail(cmd, done);
+    if (cmd.includes('sort')) sort(cmd, done);
 
     setTimeout(() => {
         process.stdout.write('\nYou typed: ' + cmd);
